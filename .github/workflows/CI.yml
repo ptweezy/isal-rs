@@ -1,14 +1,9 @@
 name: CI
 
 on:
-  pull_request:
   push:
     branches:
-      - main
-  release:
-    types:
-      - released
-      - prereleased
+      - ci-update-isal-2.32.1
 
 jobs:
   test-cross:
@@ -68,10 +63,11 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - macos-13  # x86_64
-          - macos-14  # arm
+          - macos-15-intel  # x86_64 (macos-13 is retired)
+          - macos-15  # arm (macos-14 is retired)
           - windows-latest
           - ubuntu-latest
+          - ubuntu-24.04-arm  # native aarch64, not in the upstream matrix
     steps:
       - uses: actions/checkout@v4
         with:
